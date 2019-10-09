@@ -7,6 +7,24 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// DataBase 
+var mysql = require("mysql");
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    // password: "mysql",
+    password: "1234",
+    database: "test"
+});
+
+con.connect(function(err) {
+    if (err) {
+		console.log('connecting error, err is:', err);
+        return;
+    }
+    console.log('connecting success');
+});
 
 
 var app = express();
@@ -20,6 +38,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// db state
+app.use(function(req, res, next) {
+	// connect to db
+	// console.log(con);
+  req.con = con;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

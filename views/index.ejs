@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title><%= title %></title>
@@ -7,5 +7,37 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+  </body>
+</html> -->
+
+<html>
+  <head></head>
+  <body>
+    <h1>Activity - List</h1>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>group_name</th>
+            <th>password</th>
+            <th>email</th>
+        </tr>
+        <% for ( var i = 0 ; i < activities.length ; i++){ %>
+            <tr>
+                <td>
+                    <%= activities[i].id  %>
+                </td>
+                <td>
+                    <%= activities[i].group_name  %>
+                </td>
+                <td>
+                    <%= activities[i].password  %>
+                </td>
+                <td>
+                    <%= activities[i].email  %>
+                </td>
+            </tr>
+        <% } %>
+        
+    </table>
   </body>
 </html>
