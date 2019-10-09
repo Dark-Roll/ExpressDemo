@@ -11,14 +11,21 @@
 </html> -->
 
 <html>
-  <head></head>
+  <head>
+    <script>
+      function Edit(id) {
+        window.location.href = "/userEdit?id=" + id;
+      }
+    </script>
+
+  </head>
   <body>
     <h1>Activity - List</h1>
     <table>
         <tr>
             <th>id</th>
             <th>group_name</th>
-            <th>password</th>
+            <th>people</th>
             <th>email</th>
         </tr>
         <% for ( var i = 0 ; i < activities.length ; i++){ %>
@@ -30,13 +37,21 @@
                     <%= activities[i].group_name  %>
                 </td>
                 <td>
-                    <%= activities[i].password  %>
+                    <%= activities[i].people  %>
                 </td>
                 <td>
                     <%= activities[i].email  %>
                 </td>
+
+                <td>
+                　　<input type="button" name="edit" value="Edit" 
+                    onclick="Edit( '<%= activities[i].id  %>' );" />
+                </td>
+                
+    
             </tr>
         <% } %>
+        <input type='submit' value='Add' onclick="javascript: location.href='add'">
         
     </table>
   </body>
