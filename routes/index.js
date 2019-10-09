@@ -8,21 +8,24 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
 
-  var db = req.con;
-  // var data = "";
+	var db = req.con;
+	
+	var user = req.query.user;
+	var filter = "";
+	// 有值就 filter 沒有就全部
+	if (user) {
+			filter = 'WHERE id = ?';
+	}
+	// user 是為了 代入那個變數 (?)
+	db.query('SELECT * FROM activity ' + filter, user, function(err, rows) {
+		if (err) {
+				console.log(err);
+		}
+		var data = rows;
 
-  db.query('SELECT * FROM activity', function(err, rows) {
-      if (err) {
-        console.log("db error");
-    	console.log(err);
-			}
-			// rows is an array, and element in array is an object
-			// console.log(rows, rows[0], rows[0].id);
-      var activities = rows;
-
-      // use index.ejs
-      res.render('index', { title: 'Activity Information', activities: activities});
-  });
+		// use index.ejs
+		res.render('index', { title: 'Account Information', activities: data, user: user });
+	});
 
 });
 
@@ -63,7 +66,6 @@ router.get('/userEdit', function(req, res, next) {
 
 	var id = req.query.id;
 	var db = req.con;
-	var data = "";
 
 	// 若要取得網址列參數，可使用 req.query.[參數]
 
@@ -71,7 +73,6 @@ router.get('/userEdit', function(req, res, next) {
 			if (err) {
 					console.log(err);
 			}
-			console.log(rows);
 			var data = rows;
 			res.render('userEdit', { title: 'Edit Account', activities: data });
 	});
@@ -101,6 +102,19 @@ router.post('/userEdit', function(req, res, next) {
 			res.redirect('/');
 	});
 
+});
+
+router.get('/userDelete', function(req, res, next) {
+
+	var id = req.query.id;
+	var db = req.con;
+
+	var qur = db.query('DELETE FROM activity WHERE id = ?', id, function(err, rows) {
+			if (err) {
+					console.log(err);
+			}
+			res.redirect('/');
+	});
 });
 
 module.exports = router;

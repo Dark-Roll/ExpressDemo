@@ -16,11 +16,26 @@
       function Edit(id) {
         window.location.href = "/userEdit?id=" + id;
       }
+      function Delete(id) {
+        var rs = confirm(`Confirm to delete${id}?`);
+        if (rs) {
+            window.location.href = "/userDelete?id=" + id;
+        }
+      }
+      function Search() {
+        var userid = document.getElementsByName('suserid')[0].value;
+        window.location.href = "/?user=" + userid;;
+      }
     </script>
 
   </head>
   <body>
     <h1>Activity - List</h1>
+    <div class="search">
+        <label>UserId：</label>
+        <input type="text" name="suserid" value="<%=user  %>" placeholder="input the userid">
+        <input type="button" name="sSearch" value="Search" onclick="Search();">
+    </div>
     <table>
         <tr>
             <th>id</th>
@@ -47,7 +62,9 @@
                 　　<input type="button" name="edit" value="Edit" 
                     onclick="Edit( '<%= activities[i].id  %>' );" />
                 </td>
-                
+                <td>
+                  <input type="button" name="delete" value="Delete" onclick="Delete('<%= activities[i].id  %>');" />
+                </td>
     
             </tr>
         <% } %>
