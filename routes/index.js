@@ -49,7 +49,7 @@ router.post('/userAdd', function(req, res, next) {
   };
 
   //console.log(sql);
-  var qur = db.query('INSERT INTO activity SET ?', sql, function(err, rows) {
+  var qur = db.query('INSERT INTO ? SET ?', tableName ,sql, function(err, rows) {
       if (err) {
           console.log(err);
       }else{
@@ -90,6 +90,7 @@ router.post('/userEdit', function(req, res, next) {
 			group_name: req.body.group_name
 	};
 
+	console.log(sql);
 
 	// string 可過
 	// ? 是被變數取代的樣子
