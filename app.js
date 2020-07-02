@@ -16,17 +16,17 @@ var mysql = require("mysql");
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "mysql",
-    password: "1234",
+    password: "mysql",
+    // password: "1234",
     database: "test"
 });
 
 con.connect(function(err) {
-    if (err) {
-		console.log('connecting error, err is:', err);
-        return;
-    }
-    console.log('success connecting on', port.port);
+  if (err) {
+    console.log('connecting error, err is:', err);
+    return;
+  }
+  console.log('success connecting on', port.port);
 });
 
 // test
